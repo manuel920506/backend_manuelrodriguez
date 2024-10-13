@@ -26,8 +26,9 @@ obj/
 # Logs
 *.log
 
-# Configurations
-appsettings.*.json
+# Ignore appsettings configuration files
+appsettings.json
+appsettings.Development.json
 
 # Publish folder
 publish/
