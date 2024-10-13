@@ -1,19 +1,38 @@
 
-namespace manuelrodriguezAPI {
+using DataAccessLayer;
+using DataAccessLayer.Interfaces;
+using Microsoft.EntityFrameworkCore;
+using ServiceLayer.Interfaces;
+using Services;
+using System.Text.Json.Serialization;
+
+namespace manuelrodriguezAPI { 
     public class Program {
         public static void Main(string[] args) {
-            var builder = WebApplication.CreateBuilder(args);
+            var builder = WebApplication.CreateBuilder(args); 
 
-            // Add services to the container.
+            builder.Services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseMySql(
+                    builder.Configuration.GetConnectionString("DefaultConnection"),
+                    new MySqlServerVersion(new Version(8, 0, 39))
+                ));
 
-            builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+            builder.Services.AddControllers()
+            .AddJsonOptions(options => {
+                options.JsonSerializerOptions.PropertyNamingPolicy = null; // or any other configuration you need
+                options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve; // To handle circular references
+            });
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            var app = builder.Build();
+            builder.Services.AddScoped<IExperiencesSvc, ExperiencesSvc>();
+            builder.Services.AddScoped<ILearningExperiences, LearningExperiences>();
+                    
+            // builder.Services.AddAuthentication(/* ... */);
+            // builder.Services.AddAuthorization();
 
-            // Configure the HTTP request pipeline.
+            var app = builder.Build();
+             
             if (app.Environment.IsDevelopment()) {
                 app.UseSwagger();
                 app.UseSwaggerUI();
@@ -21,12 +40,11 @@ namespace manuelrodriguezAPI {
 
             app.UseHttpsRedirection();
 
-            app.UseAuthorization();
-
+            // app.UseAuthorization();
 
             app.MapControllers();
-
             app.Run();
+
         }
     }
 }
