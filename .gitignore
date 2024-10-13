@@ -1,0 +1,41 @@
+# Build results
+bin/
+obj/
+
+# NuGet packages
+*.nupkg
+**/packages/*
+*.snupkg
+**/node_modules/
+
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.sln.ide
+
+# Rider-specific files
+.idea/
+*.sln.iml
+
+# Visual Studio Code files
+.vscode/
+
+# Logs
+*.log
+
+# Configurations
+appsettings.*.json
+
+# Publish folder
+publish/
+
+# DotNet core tools
+**/.vs/
+**/.vscode/
+
+# Ignore generated test folders
+TestResults/
+
