@@ -9,7 +9,9 @@ using System.Text.Json.Serialization;
 namespace manuelrodriguezAPI { 
     public class Program {
         public static void Main(string[] args) {
-            var builder = WebApplication.CreateBuilder(args); 
+            var builder = WebApplication.CreateBuilder(args);
+
+            builder.Services.AddAutoMapper(typeof(Program));
 
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseMySql(
