@@ -4,6 +4,7 @@ using DataAccessLayer.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using ServiceLayer.Interfaces;
 using Services;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace manuelrodriguezAPI { 
@@ -36,7 +37,7 @@ namespace manuelrodriguezAPI {
 
             builder.Services.AddControllers()
             .AddJsonOptions(options => {
-                options.JsonSerializerOptions.PropertyNamingPolicy = null; // or any other configuration you need
+                options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase; // or any other configuration you need
                 options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve; // To handle circular references
             });
             builder.Services.AddEndpointsApiExplorer();
