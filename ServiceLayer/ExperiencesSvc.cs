@@ -9,8 +9,8 @@ namespace Services {
         public ExperiencesSvc(ILearningExperiences learningExperiences) {
             _learningExperiences = learningExperiences;
         }
-        public async Task<LearningExperience[]> GetAllLearningExperiences(LearningExperienceListQuery query) {
-            return await  _learningExperiences.GetAllLearningExperiences(query);
+        public async Task<LearningExperience[]> GetAllLearningExperiences() {
+            return await  _learningExperiences.GetAllLearningExperiences();
         }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
-using ControllerLayer.DTOs;
-using ControllerLayer.DTOs.Queries;
+using ControllerLayer.DTOs; 
 using ModelLayer;
 using ModelLayer.Queries;
 
@@ -14,8 +13,7 @@ namespace ControllerLayer.Utils {
             CreateMap<LearningExperienceDTO, LearningExperience>();
             CreateMap<LearningExperience, LearningExperienceDTO>();
             CreateMap<Address, AddressDTO>();
-            CreateMap<AddressDTO, Address>();
-            CreateMap<LearningExperienceListQueryDTO, LearningExperienceListQuery>();
+            CreateMap<AddressDTO, Address>(); 
         }
     }
 }

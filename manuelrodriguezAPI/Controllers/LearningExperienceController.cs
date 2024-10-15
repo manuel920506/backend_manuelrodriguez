@@ -3,6 +3,7 @@ using ControllerLayer.DTOs;
 using ControllerLayer.DTOs.Queries;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OutputCaching;
 using ModelLayer;
 using ModelLayer.Queries;
 using ServiceLayer.Interfaces;
@@ -28,15 +29,14 @@ namespace backendAPI.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        [HttpPost]
-        [Route("GetAllLearningExperiences", Name = "GetAllLearningExperiences")]
-        //[Authorize]
+        [HttpGet]
+        [OutputCache]
+        [Route("GetAllLearningExperiences", Name = "GetAllLearningExperiences")] 
         [ProducesResponseType(typeof(LearningExperienceDTO[]), 200)]
         [ProducesResponseType(typeof(string), 400)]
-        public async Task<IActionResult> GetAllLearningExperiences(LearningExperienceListQueryDTO query) {
+        public async Task<IActionResult> GetAllLearningExperiences() {
             try {
-                var _query = mapper.Map<LearningExperienceListQuery>(query);
-                var learningExperiences = await experiencesSvc.GetAllLearningExperiences(_query);
+                var learningExperiences = await experiencesSvc.GetAllLearningExperiences();
                 LearningExperienceDTO[] learningExperiencesDTO = learningExperiences.Select(le => mapper.Map<LearningExperienceDTO>(le)).ToArray();
                 return Ok(learningExperiencesDTO); 
             } catch (Exception ex) { 

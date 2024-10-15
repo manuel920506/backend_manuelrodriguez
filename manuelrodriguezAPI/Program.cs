@@ -14,6 +14,10 @@ namespace manuelrodriguezAPI {
 
             builder.Services.AddAutoMapper(typeof(Program));
 
+            builder.Services.AddOutputCache(options => {
+                options.DefaultExpirationTimeSpan = TimeSpan.FromDays(1);
+            });
+
             var allowedSiteFrontend = builder.Configuration.GetValue<string>("AllowedSiteFrontend")!;
             var allowedSiteBackend = builder.Configuration.GetValue<string>("AllowedSiteBackend")!;
 
@@ -41,7 +45,7 @@ namespace manuelrodriguezAPI {
                 options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve; // To handle circular references
             });
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+            builder.Services.AddSwaggerGen(); 
 
             builder.Services.AddScoped<IExperiencesSvc, ExperiencesSvc>();
             builder.Services.AddScoped<ILearningExperiences, LearningExperiences>();
@@ -60,6 +64,8 @@ namespace manuelrodriguezAPI {
             }
 
             app.UseHttpsRedirection();
+
+            app.UseOutputCache();
 
             // app.UseAuthorization();
 

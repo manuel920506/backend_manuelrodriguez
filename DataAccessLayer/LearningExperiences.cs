@@ -9,7 +9,7 @@ namespace DataAccessLayer {
         public LearningExperiences(ApplicationDbContext context) { 
             this._context = context;
         }
-        public async Task<LearningExperience[]> GetAllLearningExperiences(LearningExperienceListQuery query) {
+        public async Task<LearningExperience[]> GetAllLearningExperiences() {
             try {
                 return await this._context.LearningExperiences 
                     .Include(le => le.Address).OrderByDescending(le => le.From).ToArrayAsync(); 
