@@ -3,6 +3,6 @@ using ModelLayer;
 
 namespace DataAccessLayer.Interfaces {
     public interface ILearningExperiences {
-         LearningExperience[] GetAllLearningExperiences(LearningExperienceListQuery query);
+        Task<LearningExperience[]> GetAllLearningExperiences(LearningExperienceListQuery query);
     }
 }

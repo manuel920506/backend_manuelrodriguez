@@ -33,10 +33,10 @@ namespace backendAPI.Controllers
         //[Authorize]
         [ProducesResponseType(typeof(LearningExperienceDTO[]), 200)]
         [ProducesResponseType(typeof(string), 400)]
-        public IActionResult GetAllLearningExperiences(LearningExperienceListQueryDTO query) {
+        public async Task<IActionResult> GetAllLearningExperiences(LearningExperienceListQueryDTO query) {
             try {
                 var _query = mapper.Map<LearningExperienceListQuery>(query);
-                var learningExperiences = experiencesSvc.GetAllLearningExperiences(_query);
+                var learningExperiences = await experiencesSvc.GetAllLearningExperiences(_query);
                 LearningExperienceDTO[] learningExperiencesDTO = learningExperiences.Select(le => mapper.Map<LearningExperienceDTO>(le)).ToArray();
                 return Ok(learningExperiencesDTO); 
             } catch (Exception ex) { 

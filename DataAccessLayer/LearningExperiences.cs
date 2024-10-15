@@ -9,10 +9,10 @@ namespace DataAccessLayer {
         public LearningExperiences(ApplicationDbContext context) { 
             this._context = context;
         }
-        public LearningExperience[] GetAllLearningExperiences(LearningExperienceListQuery query) {
+        public async Task<LearningExperience[]> GetAllLearningExperiences(LearningExperienceListQuery query) {
             try {
-                return this._context.LearningExperiences 
-                    .Include(le => le.Address).ToArray(); 
+                return await this._context.LearningExperiences 
+                    .Include(le => le.Address).OrderByDescending(le => le.From).ToArrayAsync(); 
             } catch (InvalidOperationException ex) {
                 // Log dell'eccezione
                 Console.WriteLine("Invalid operation: " + ex.Message);
