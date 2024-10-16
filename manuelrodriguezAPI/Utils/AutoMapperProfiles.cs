@@ -13,7 +13,9 @@ namespace ControllerLayer.Utils {
             CreateMap<LearningExperienceDTO, LearningExperience>();
             CreateMap<LearningExperience, LearningExperienceDTO>();
             CreateMap<Address, AddressDTO>();
-            CreateMap<AddressDTO, Address>(); 
+            CreateMap<AddressDTO, Address>();
+            CreateMap<SkillDTO, Skill>();
+            CreateMap<Skill, SkillDTO>();
         }
     }
 }

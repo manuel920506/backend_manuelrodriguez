@@ -1,13 +1,8 @@
 ﻿using AutoMapper;
-using ControllerLayer.DTOs;
-using ControllerLayer.DTOs.Queries;
-using Microsoft.AspNetCore.Authorization;
+using ControllerLayer.DTOs; 
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.OutputCaching;
-using ModelLayer;
-using ModelLayer.Queries;
-using ServiceLayer.Interfaces;
-using System.Xml.Linq;
+using Microsoft.AspNetCore.OutputCaching; 
+using ServiceLayer.Interfaces; 
 
 namespace backendAPI.Controllers
 {

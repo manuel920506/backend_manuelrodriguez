@@ -1,16 +1,15 @@
 ﻿using DataAccessLayer.Interfaces;
-using ModelLayer;
-using ModelLayer.Queries;
+using ModelLayer; 
 using ServiceLayer.Interfaces; 
 
 namespace Services {
     public class ExperiencesSvc : IExperiencesSvc {
-        private readonly ILearningExperiences _learningExperiences;
+        private readonly ILearningExperiences learningExperiences;
         public ExperiencesSvc(ILearningExperiences learningExperiences) {
-            _learningExperiences = learningExperiences;
+            this.learningExperiences = learningExperiences;
         }
         public async Task<LearningExperience[]> GetAllLearningExperiences() {
-            return await  _learningExperiences.GetAllLearningExperiences();
+            return await this.learningExperiences.GetAllLearningExperiences();
         }
     }
 }

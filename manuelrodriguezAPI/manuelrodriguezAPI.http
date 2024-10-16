@@ -1,6 +1,6 @@
 @manuelrodriguezAPI_HostAddress = http://localhost:5111
 
-GET {{manuelrodriguezAPI_HostAddress}}/weatherforecast/
+GET {{manuelrodriguezAPI_HostAddress}}/learningexperience/
 Accept: application/json
 
 ###

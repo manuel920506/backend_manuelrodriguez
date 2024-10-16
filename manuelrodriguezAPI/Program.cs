@@ -49,11 +49,13 @@ namespace manuelrodriguezAPI {
 
             builder.Services.AddScoped<IExperiencesSvc, ExperiencesSvc>();
             builder.Services.AddScoped<ILearningExperiences, LearningExperiences>();
+            builder.Services.AddScoped<ISkillSvc, SkillSvc>();
+            builder.Services.AddScoped<ISkill, Skill>();
 
             // builder.Services.AddAuthentication(/* ... */);
             // builder.Services.AddAuthorization();
 
-          
+
             var app = builder.Build();
 
             app.UseCors(); 

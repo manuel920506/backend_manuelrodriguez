@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ModelLayer;
-using System.Xml;
+using ModelLayer; 
 
 namespace DataAccessLayer {
     public class ApplicationDbContext: DbContext {
@@ -11,9 +10,12 @@ namespace DataAccessLayer {
 
         //Add-Migration LearningExperienceTable
         //Add-Migration AddAddressTable
+        //Add-Migration AddSkillTable
 
         //Update-Database
         public DbSet<LearningExperience> LearningExperiences { get; set; }
         public DbSet<Address> Addresses { get; set; }
+
+        public DbSet<ModelLayer.Skill> Skills { get; set; }
     }
 }

@@ -1,17 +1,15 @@
 ﻿using DataAccessLayer.Interfaces; 
-using ModelLayer;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataAccessLayer {
-    public class LearningExperiences: ILearningExperiences {
+    public class Skill: ISkill {
         private readonly ApplicationDbContext _context;
-        public LearningExperiences(ApplicationDbContext context) { 
+        public Skill(ApplicationDbContext context) { 
             this._context = context;
         }
-        public async Task<LearningExperience[]> GetAllLearningExperiences() {
+        public async Task<ModelLayer.Skill[]> GetAllSkills() {
             try {
-                return await this._context.LearningExperiences 
-                    .Include(le => le.Address).OrderByDescending(le => le.From).ToArrayAsync();  
+                return await this._context.Skills.OrderByDescending(s => s.Weight).ToArrayAsync();  
             } catch (Exception ex) { 
                 Console.WriteLine("Unexpected error: " + ex.Message);
                 throw;
