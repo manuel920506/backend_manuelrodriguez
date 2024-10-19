@@ -1,9 +1,13 @@
 
 using DataAccessLayer;
 using DataAccessLayer.Interfaces;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using ServiceLayer.Interfaces;
 using Services;
+using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -32,6 +36,23 @@ namespace manuelrodriguezAPI {
                     });
             });
 
+            builder.Services.AddHttpContextAccessor();
+            builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders(); 
+
+            builder.Services.AddAuthentication().AddJwtBearer(options => {
+                options.MapInboundClaims = false;
+                options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters {
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["jwtKey"]!)),
+                    ClockSkew = TimeSpan.Zero
+                };
+            });
+
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseMySql(
                     builder.Configuration.GetConnectionString("DefaultConnection"),
@@ -51,8 +72,7 @@ namespace manuelrodriguezAPI {
             builder.Services.AddScoped<ILearningExperiences, LearningExperiences>();
             builder.Services.AddScoped<ISkillSvc, SkillSvc>();
             builder.Services.AddScoped<ISkill, Skill>();
-
-            // builder.Services.AddAuthentication(/* ... */);
+             
             // builder.Services.AddAuthorization();
 
 
