@@ -3,7 +3,6 @@ using DataAccessLayer;
 using DataAccessLayer.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using ServiceLayer.Interfaces;
 using Services;
@@ -72,7 +71,9 @@ namespace manuelrodriguezAPI {
             builder.Services.AddScoped<ILearningExperiences, LearningExperiences>();
             builder.Services.AddScoped<ISkillSvc, SkillSvc>();
             builder.Services.AddScoped<ISkill, Skill>();
-             
+            builder.Services.AddScoped<ICommonDataSvc, CommonDataSvc>();
+            builder.Services.AddScoped<ICommonData, CommonData>();
+
             // builder.Services.AddAuthorization();
 
 

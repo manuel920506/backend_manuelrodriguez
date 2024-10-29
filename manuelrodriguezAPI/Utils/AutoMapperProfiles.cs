@@ -16,6 +16,7 @@ namespace ControllerLayer.Utils {
             CreateMap<AddressDTO, Address>();
             CreateMap<SkillDTO, Skill>();
             CreateMap<Skill, SkillDTO>();
+            CreateMap<CommonData, CommonDataDTO>();
         }
     }
 }
