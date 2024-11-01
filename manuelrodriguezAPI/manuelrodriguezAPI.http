@@ -1,4 +1,4 @@
-@manuelrodriguezAPI_HostAddress = http://localhost:5111
+@manuelrodriguezAPI_HostAddress = https://api.manuelrodriguez.dev
 
 GET {{manuelrodriguezAPI_HostAddress}}/learningexperience/
 Accept: application/json

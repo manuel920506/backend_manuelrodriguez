@@ -23,13 +23,14 @@ namespace manuelrodriguezAPI {
 
             var allowedSiteFrontend = builder.Configuration.GetValue<string>("AllowedSiteFrontend")!;
             var allowedSiteBackend = builder.Configuration.GetValue<string>("AllowedSiteBackend")!;
+            var allowedSiteBackendRun = builder.Configuration.GetValue<string>("AllowedSiteBackendRun")!;
 
             //only for browsers
             builder.Services.AddCors(options =>
             {
                 options.AddDefaultPolicy(
                     policy => {
-                    policy.WithOrigins(allowedSiteFrontend, allowedSiteBackend)
+                    policy.WithOrigins(allowedSiteFrontend, allowedSiteBackend, allowedSiteBackendRun)
                                   .AllowAnyMethod()
                                   .AllowAnyHeader();
                     });
@@ -95,7 +96,7 @@ namespace manuelrodriguezAPI {
             // app.UseAuthorization();
 
             app.MapControllers();
-            app.Run();
+            app.Run(allowedSiteBackendRun);
 
         }
     }

@@ -10,3 +10,7 @@ DataAccessLayer:
 
 ## Installations
 dotnet add package Microsoft.AspNetCore.Cors
+
+## Production
+dotnet publish -c Release -o ./publish
+
