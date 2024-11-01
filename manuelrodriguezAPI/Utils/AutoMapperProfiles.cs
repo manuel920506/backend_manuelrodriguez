@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using ControllerLayer.DTOs; 
 using ModelLayer;
-using ModelLayer.Queries;
 
 namespace ControllerLayer.Utils {
     public class AutoMapperProfiles: Profile {
@@ -16,6 +15,7 @@ namespace ControllerLayer.Utils {
             CreateMap<AddressDTO, Address>();
             CreateMap<SkillDTO, Skill>();
             CreateMap<Skill, SkillDTO>();
+            CreateMap<Education, EducationDTO>();
             CreateMap<CommonData, CommonDataDTO>();
         }
     }

@@ -69,6 +69,8 @@ namespace manuelrodriguezAPI {
 
             builder.Services.AddScoped<IExperiencesSvc, ExperiencesSvc>();
             builder.Services.AddScoped<ILearningExperiences, LearningExperiences>();
+            builder.Services.AddScoped<IEducationSvc, EducationSvc>();
+            builder.Services.AddScoped<IEducation, Education>();
             builder.Services.AddScoped<ISkillSvc, SkillSvc>();
             builder.Services.AddScoped<ISkill, Skill>();
             builder.Services.AddScoped<ICommonDataSvc, CommonDataSvc>();

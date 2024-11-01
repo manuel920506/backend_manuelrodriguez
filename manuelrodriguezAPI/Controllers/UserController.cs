@@ -34,9 +34,9 @@ namespace ControllerLayer.Controllers {
             this.mapper = mapper;
         } 
 
-        [HttpPost("registrar")]
+        [HttpPost("register")]
         [AllowAnonymous]
-        public async Task<ActionResult<AuthenticationResponse>> Register(UserCredentialsDTO credencialesUsuarioDTO) {
+        public async Task<ActionResult<AuthenticationResponseDTO>> Register(UserCredentialsDTO credencialesUsuarioDTO) {
             var usuario = new IdentityUser {
                 Email = credencialesUsuarioDTO.Email,
                 UserName = credencialesUsuarioDTO.Email
@@ -53,7 +53,7 @@ namespace ControllerLayer.Controllers {
 
         [HttpPost("login")]
         [AllowAnonymous]
-        public async Task<ActionResult<AuthenticationResponse>> Login(UserCredentialsDTO userCredentialsDTO) {
+        public async Task<ActionResult<AuthenticationResponseDTO>> Login(UserCredentialsDTO userCredentialsDTO) {
             var user = await userManager.FindByEmailAsync(userCredentialsDTO.Email);
 
             if (user is null) {
@@ -78,7 +78,7 @@ namespace ControllerLayer.Controllers {
             return errors;
         }
 
-        private async Task<AuthenticationResponse> BuildToken(IdentityUser identityUser) {
+        private async Task<AuthenticationResponseDTO> BuildToken(IdentityUser identityUser) {
             var claims = new List<Claim>
             {
                 new Claim("email", identityUser.Email!),
@@ -100,7 +100,7 @@ namespace ControllerLayer.Controllers {
 
             var token = new JwtSecurityTokenHandler().WriteToken(securityToken);
 
-            return new AuthenticationResponse {
+            return new AuthenticationResponseDTO {
                 Token = token,
                 Expiration = expiration
             };
