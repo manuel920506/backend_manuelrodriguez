@@ -1,4 +1,6 @@
 
+using ControllerLayer.Middleware;
+using ControllerLayer.Utils;
 using DataAccessLayer;
 using DataAccessLayer.Interfaces;
 using Microsoft.AspNetCore.Identity;
@@ -77,6 +79,9 @@ namespace manuelrodriguezAPI {
             builder.Services.AddScoped<ICommonDataSvc, CommonDataSvc>();
             builder.Services.AddScoped<ICommonData, CommonData>();
 
+            builder.Services.AddHttpClient<LocationService>();
+
+
             // builder.Services.AddAuthorization();
 
 
@@ -93,11 +98,12 @@ namespace manuelrodriguezAPI {
 
             app.UseOutputCache();
 
+            app.UseMiddleware<UserActivityLoggingMiddleware>();
+
             // app.UseAuthorization();
 
             app.MapControllers();
-            app.Run(allowedSiteBackendRun);
-
+            app.Run();
         }
     }
 }

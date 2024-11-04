@@ -16,7 +16,7 @@ namespace DataAccessLayer {
         //Add-Migration Educations
         //Add-Migration CommonData
         //Add-Migration UpdateEducations
-
+        //Add-Migration UserActivityLogs
 
         //Update-Database
         public DbSet<LearningExperience> LearningExperiences { get; set; }
@@ -27,5 +27,7 @@ namespace DataAccessLayer {
         public DbSet<ModelLayer.Education> Educations { get; set; }
 
         public DbSet<ModelLayer.CommonData> CommonData { get; set; }
+
+        public DbSet<ModelLayer.UserActivityLog> UserActivityLogs { get; set; }
     }
 }
