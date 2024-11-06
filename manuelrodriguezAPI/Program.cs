@@ -1,13 +1,16 @@
 
+using ControllerLayer.Caching;
 using ControllerLayer.Middleware;
 using ControllerLayer.Utils;
 using DataAccessLayer;
 using DataAccessLayer.Interfaces;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using ServiceLayer.Interfaces;
 using Services;
+using System.Net;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -20,7 +23,7 @@ namespace manuelrodriguezAPI {
             builder.Services.AddAutoMapper(typeof(Program));
 
             builder.Services.AddOutputCache(options => {
-                options.DefaultExpirationTimeSpan = TimeSpan.FromDays(1);
+                options.DefaultExpirationTimeSpan = TimeSpan.FromSeconds(60);
             });
 
             var allowedSiteFrontend = builder.Configuration.GetValue<string>("AllowedSiteFrontend")!;
@@ -81,6 +84,15 @@ namespace manuelrodriguezAPI {
 
             builder.Services.AddHttpClient<LocationService>();
 
+            builder.Services.Configure<ForwardedHeadersOptions>(options =>
+            {
+                options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+                options.KnownProxies.Add(IPAddress.Parse("127.0.0.1")); // Optional: Limit to trusted proxies
+            });
+
+            builder.Services.AddMemoryCache(); // Add memory cache services
+            builder.Services.AddScoped<IpOutputCacheFilter>(); // Register IpOutputCacheAttribute for dependency injection
+
 
             // builder.Services.AddAuthorization();
 
@@ -98,12 +110,14 @@ namespace manuelrodriguezAPI {
 
             app.UseOutputCache();
 
+            app.UseForwardedHeaders();
+
             app.UseMiddleware<UserActivityLoggingMiddleware>();
 
             // app.UseAuthorization();
 
             app.MapControllers();
-            app.Run();
+            app.Run(allowedSiteBackendRun);
         }
     }
 }
