@@ -112,6 +112,8 @@ namespace manuelrodriguezAPI {
 
             app.UseForwardedHeaders();
 
+            app.UseMiddleware<PathFilterMiddleware>();
+
             app.UseMiddleware<UserActivityLoggingMiddleware>();
 
             // app.UseAuthorization();
