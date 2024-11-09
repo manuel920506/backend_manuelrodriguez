@@ -5,10 +5,12 @@ using System.Security.Claims;
 
 namespace ControllerLayer.Middleware {
     public class UserActivityLoggingMiddleware {
-        private readonly RequestDelegate _next; 
+        private readonly RequestDelegate _next;
+        private readonly TimeZoneInfo _italyTimeZone;
 
         public UserActivityLoggingMiddleware(RequestDelegate next) {
             _next = next;
+            _italyTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Central European Standard Time");
         }
 
         public async Task InvokeAsync(HttpContext httpContext, ApplicationDbContext context, LocationService locationService) {
@@ -27,6 +29,8 @@ namespace ControllerLayer.Middleware {
                                    requestMethod,
                                    requestPath,
                                    queryString.HasValue ? queryString.Value : "None");
+                var utcNow = DateTime.UtcNow;
+                var italyTime = TimeZoneInfo.ConvertTimeFromUtc(utcNow, _italyTimeZone);
 
                 var userActivityLog = new UserActivityLog {
                     UserId = string.IsNullOrWhiteSpace(userId) ? "" :  userId,
@@ -34,7 +38,7 @@ namespace ControllerLayer.Middleware {
                     IpAddress = string.IsNullOrWhiteSpace(ipAddress) ? "" : ipAddress,
                     DeviceType = string.IsNullOrWhiteSpace(deviceType) ? "" : deviceType,
                     Location = string.IsNullOrWhiteSpace(location) ? "" : location,
-                    Timestamp = DateTime.UtcNow
+                    Timestamp = italyTime
                 };
 
                 context.UserActivityLogs.Add(userActivityLog);
