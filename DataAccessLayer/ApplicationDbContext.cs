@@ -9,6 +9,11 @@ namespace DataAccessLayer {
         {
         }
 
+        //protected override void OnModelCreating(ModelBuilder modelBuilder) {
+        //    base.OnModelCreating(modelBuilder);
+        //    modelBuilder.Entity<MyEntity>().HasKey(e => new { e.key1, e.key2 });
+        //}
+
         //Add-Migration LearningExperienceTable
         //Add-Migration AddAddressTable
         //Add-Migration AddSkillTable

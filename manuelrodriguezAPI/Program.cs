@@ -42,9 +42,12 @@ namespace manuelrodriguezAPI {
             });
 
             builder.Services.AddHttpContextAccessor();
-            builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+            builder.Services.AddIdentityCore<IdentityUser>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
-                .AddDefaultTokenProviders(); 
+                .AddDefaultTokenProviders();
+
+            builder.Services.AddScoped<UserManager<IdentityUser>>();
+            builder.Services.AddScoped<SignInManager<IdentityUser>>();
 
             builder.Services.AddAuthentication().AddJwtBearer(options => {
                 options.MapInboundClaims = false;
